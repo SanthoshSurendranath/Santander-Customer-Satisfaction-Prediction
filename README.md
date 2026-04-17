@@ -126,16 +126,16 @@ The project is designed for experimentation with standard classification models:
 
 ### Model Performance
 
-Use this section to add your final validation and Kaggle scores once the modelling notebook is finalized.
+This section has details about the models used for performance.
 
-| Model | Validation Score | Kaggle Public Score |
-|---|---:|---:|
-| Logistic Regression | TBD | TBD |
-| Decision Tree | TBD | TBD |
-| Random Forest | TBD | TBD |
-| XGBoost / Gradient Boosting | TBD | TBD |
-| LightGBM | TBD | TBD |
-| Final Ensemble | TBD | TBD |
+| Models | 
+|---|
+| Logistic Regression | 
+| Decision Tree | 
+| Random Forest | 
+| XGBoost / Gradient Boosting | 
+| LightGBM | 
+| Final Ensemble |
 
 ---
 
