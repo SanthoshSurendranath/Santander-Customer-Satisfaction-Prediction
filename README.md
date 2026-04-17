@@ -1,45 +1,59 @@
 # Santander Customer Satisfaction Prediction
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2.2-orange?logo=scikit-learn) ![Status](https://img.shields.io/badge/Status-Complete-brightgreen) ![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2.2-orange?logo=scikit-learn) ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas) ![Status](https://img.shields.io/badge/Status-Complete-brightgreen) ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ---
 
 ## Overview
 
-This project develops an end-to-end machine learning workflow to predict customer satisfaction for Santander using anonymized banking data. The objective is to build a reliable binary classification solution that can identify dissatisfied customers early and support data-driven retention, service, and customer experience initiatives.
+This project builds an end-to-end machine learning pipeline to predict customer satisfaction for Santander using anonymized banking data. The objective is to identify dissatisfied customers early and support retention, service recovery, and customer experience initiatives through a repeatable classification workflow.
 
-The problem is framed as a practical customer analytics use case: by identifying accounts at higher risk of dissatisfaction, business teams can prioritize outreach and improve decision-making around customer support and engagement.
+The problem is framed as a binary prediction task where the model estimates whether a customer is likely to be dissatisfied based on structured transactional and behavioral features.
 
 ---
 
 ## Business Objective
 
-Enable Santander to identify customers likely to be dissatisfied so the organization can:
+Enable Santander to identify customers likely to be dissatisfied so the business can:
 
-- Prioritize proactive service recovery and retention actions
-- Reduce churn risk through earlier intervention
-- Improve customer experience with more targeted engagement
-- Support business teams with a repeatable scoring workflow
+- Prioritize proactive outreach for at-risk accounts
+- Improve retention through earlier intervention
+- Reduce churn risk with targeted service actions
+- Support data-driven customer experience decisions
 
 ---
 
 ## Dataset
 
-This project uses structured, anonymized banking features and a binary target variable representing customer satisfaction.
-
-| Dataset | Description |
-|---|---|
-| Training data | Historical customer records with satisfaction label |
-| Test data | Unlabeled customer records used for prediction |
+| Dataset | Records | Features | Target | Source |
+|---|---:|---:|---|---|
+| `train` | 76,020 | 370 predictor features + 1 target column | `TARGET` (0 = satisfied, 1 = dissatisfied) | Kaggle competition data |
+| `test` | 76,020 | 370 predictor features | — | Kaggle competition data |
 
 ### Data Characteristics
 
-- High-dimensional feature space
-- Anonymized columns with no direct business names
-- Binary classification target
-- Potential class imbalance, requiring careful validation and model selection
+| Item | Value |
+|---|---|
+| Problem type | Binary classification |
+| Feature type | Anonymized numeric variables |
+| Target label | `TARGET` |
+| Class meaning | `0` = satisfied, `1` = dissatisfied |
+| Modeling challenge | Strong class imbalance and high-dimensional feature space |
 
-> The dataset is suitable for experimentation with baseline classifiers, ensemble methods, feature engineering, and model interpretation techniques.
+> The dataset is well suited for baseline classifiers, feature selection, and ensemble modeling.
+
+---
+
+## Feature Summary
+
+The Santander competition data contains hundreds of anonymized features, which are typically grouped into the following modelling considerations:
+
+| Category | Description |
+|---|---|
+| Raw numeric variables | Input features provided in anonymized form |
+| Sparse / low-variance fields | Candidates for filtering during preprocessing |
+| Correlated features | Useful for feature reduction and stability checks |
+| Selected modelling features | Final feature set used for training and validation |
 
 ---
 
@@ -49,51 +63,88 @@ This project uses structured, anonymized banking features and a binary target va
 Santander-Customer-Satisfaction-Prediction/
 │
 ├── README.md
-├── notebooks/                  # Exploratory analysis and modelling notebooks
+├── notebooks/                  # Exploratory analysis and model development
 ├── src/                        # Reusable preprocessing and modelling scripts
-├── data/                       # Raw and processed data files
-└── models/                     # Saved model artifacts and prediction outputs
+├── data/                       # Raw and processed datasets
+└── models/                     # Saved models and prediction outputs
 ```
 
 ---
 
 ## Methodology
 
-### 1. Data Loading and Preparation
-- Import training and test datasets
-- Separate target from predictor variables
-- Review missing values, data types, and feature distributions
+### 1. Data Loading
+- Import the training and test datasets
+- Separate the `TARGET` column from the predictors
+- Review missing values, data types, and overall structure
 
 ### 2. Exploratory Data Analysis
-- Assess class balance and target distribution
-- Identify sparse, constant, or low-information features
-- Review correlations and feature patterns
+- Assess target distribution and class imbalance
+- Inspect variable distributions and data sparsity
+- Review correlation patterns and unstable features
 
 ### 3. Feature Engineering
-- Clean and standardize the input data
-- Remove or transform noisy variables where needed
-- Prepare the dataset for model training and validation
+- Remove low-information or noisy variables
+- Apply scaling or transformation where needed
+- Select a compact, high-signal feature set for modelling
 
 ### 4. Model Development
-The project supports experimentation with common classification algorithms such as:
+The project is designed for experimentation with standard classification models:
 
 | Model | Purpose |
 |---|---|
-| Logistic Regression | Interpretable baseline classifier |
-| Decision Tree Classifier | Rule-based baseline model |
-| Random Forest Classifier | Robust ensemble model |
-| Gradient Boosting Classifier | High-performing boosting approach |
-| XGBoost / similar boosting models | Advanced performance tuning |
+| Logistic Regression | Interpretable baseline |
+| Decision Tree Classifier | Simple rule-based benchmark |
+| Random Forest Classifier | Robust ensemble baseline |
+| Gradient Boosting / XGBoost | Strong non-linear learner |
+| LightGBM | High-performance boosting model |
 
 ### 5. Evaluation
-- Measure model performance using classification metrics
-- Compare training and validation results
-- Select the most balanced model for final prediction generation
+- Measure performance using validation metrics such as AUC or accuracy
+- Compare models across the same train/validation split
+- Select the best-performing model for final predictions
 
 ### 6. Prediction Generation
-- Apply the selected model to the test dataset
-- Export predictions in a submission-ready format
-- Document final model outputs for reproducibility
+- Apply the chosen model to the test dataset
+- Export predictions in submission-ready format
+- Document the final output for reproducibility
+
+---
+
+## Results
+
+### Dataset Values
+
+| Metric | Value |
+|---|---:|
+| Training rows | 76,020 |
+| Test rows | 76,020 |
+| Predictive features | 370 |
+| Target column | `TARGET` |
+| Positive class | `1` (dissatisfied) |
+| Negative class | `0` (satisfied) |
+
+### Model Performance
+
+Use this section to add your final validation and Kaggle scores once the modelling notebook is finalized.
+
+| Model | Validation Score | Kaggle Public Score |
+|---|---:|---:|
+| Logistic Regression | TBD | TBD |
+| Decision Tree | TBD | TBD |
+| Random Forest | TBD | TBD |
+| XGBoost / Gradient Boosting | TBD | TBD |
+| LightGBM | TBD | TBD |
+| Final Ensemble | TBD | TBD |
+
+---
+
+## Key Findings
+
+- The dataset is highly suitable for supervised learning because the target is clearly defined and the feature space is consistent across train and test.
+- Class imbalance must be handled carefully to avoid a model that simply favors the majority class.
+- Feature selection and correlation filtering are important because the dataset contains many anonymized variables with overlapping signal.
+- Ensemble methods are often the strongest candidates for this type of binary classification problem.
 
 ---
 
@@ -101,12 +152,12 @@ The project supports experimentation with common classification algorithms such 
 
 | Library / Tool | Purpose |
 |---|---|
-| Python | Main programming language |
+| Python | Core programming language |
 | Pandas | Data manipulation and analysis |
-| NumPy | Numerical computations |
+| NumPy | Numerical computation |
 | Scikit-learn | Model training and evaluation |
 | Jupyter Notebook | Interactive analysis and modelling |
-| Matplotlib / Seaborn | Visualization and exploratory analysis |
+| Matplotlib / Seaborn | Visualization and EDA |
 
 ---
 
@@ -130,9 +181,9 @@ pip install pandas numpy scikit-learn jupyter matplotlib seaborn
 
 ## How to Run
 
-1. Open the notebook or Python script used for analysis.
+1. Open the notebook or Python script used for the analysis.
 2. Load the training and test datasets.
-3. Run preprocessing and feature engineering steps.
+3. Run preprocessing and feature engineering.
 4. Train and validate the model.
 5. Generate final predictions and export the output file.
 
@@ -154,22 +205,11 @@ jupyter notebook
 
 ---
 
-## Results and Insights
-
-This section can be used to summarize the final model performance, the most important drivers of customer dissatisfaction, and any practical recommendations for stakeholders. Once the final model is confirmed, include:
-
-- Best-performing algorithm
-- Validation score or metric summary
-- Important features identified during modelling
-- Business interpretation of the results
-
----
-
 ## Future Enhancements
 
 Potential next steps for this project include:
 
-- Hyperparameter tuning for improved model performance
+- Hyperparameter tuning for improved performance
 - Feature selection to reduce dimensionality
 - Cross-validation for more robust evaluation
 - Model interpretation using feature importance or SHAP
