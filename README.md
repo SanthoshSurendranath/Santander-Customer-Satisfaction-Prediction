@@ -27,8 +27,8 @@ Enable Santander to identify customers likely to be dissatisfied so the business
 
 | Dataset | Records | Features | Target | Source |
 |---|---:|---:|---|---|
-| `train` | 76,020 | 370 predictor features + 1 target column | `TARGET` (0 = satisfied, 1 = dissatisfied) | Kaggle competition data |
-| `test` | 76,020 | 370 predictor features | — | Kaggle competition data |
+| `train` | 76,020 | 370 predictor features + 1 target column | `TARGET` (0 = satisfied, 1 = dissatisfied) | 
+| `test` | 76,020 | 370 predictor features | — | 
 
 ### Data Characteristics
 
